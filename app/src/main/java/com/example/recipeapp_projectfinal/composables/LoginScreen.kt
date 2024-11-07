@@ -24,12 +24,15 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.text.font.FontWeight
 import com.example.recipeapp_projectfinal.R
+import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModel
+import com.example.recipeapp_projectfinal.db.UserDao
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(onLoginClick: () -> Unit, onNavigateToRegister: () -> Unit) {
+fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Unit, loginViewModel: LoginViewModel) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+
 
     Scaffold { paddingValues ->
         Box(
@@ -118,9 +121,23 @@ fun LoginScreen(onLoginClick: () -> Unit, onNavigateToRegister: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(24.dp))
 
+                if (loginViewModel.errorMessage.isNotEmpty()) {
+                    Text(
+                        text = loginViewModel.errorMessage,
+                        color = Color.Red,
+                        style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.padding(8.dp)
+                    )
+                }
+
                 // Botón de Iniciar Sesión
                 Button(
-                    onClick = { onLoginClick() }, // Navegar al destino de recetas
+                    onClick = {
+                        loginViewModel.authenticate(email.value, password.value)
+                        if (loginViewModel.isAuthenticated) {
+                            onLoginClick(true)
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth().height(48.dp)
                 ) {
                     Text(text = "Iniciar Sesión")
@@ -142,8 +159,8 @@ fun LoginScreen(onLoginClick: () -> Unit, onNavigateToRegister: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
+/*@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     LoginScreen(onLoginClick = { /* Acción de login */ }, onNavigateToRegister = { })
-}
+}*/
