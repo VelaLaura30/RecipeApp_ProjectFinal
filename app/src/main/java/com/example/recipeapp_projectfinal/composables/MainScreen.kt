@@ -11,7 +11,7 @@ fun MainScreen() {
     val viewModel: RecipeRandomViewModel = viewModel()
 
     LaunchedEffect(Unit) {
-        viewModel.getRandomRecipe()
+        viewModel.getRandomRecipe(5)
     }
 
     RandomRecipeScreen(viewModel = viewModel)

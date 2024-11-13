@@ -8,24 +8,24 @@ import com.example.recipeapp_projectfinal.data.api.models.RandomRecipe
 import kotlinx.coroutines.launch
 
 class RecipeRandomViewModel : ViewModel() {
-    val randomRecipe = mutableStateOf<RandomRecipe?>(null)
+    val randomRecipes = mutableStateOf<List<RandomRecipe>>(emptyList())
     val isLoading = mutableStateOf(false)
     val error = mutableStateOf<String?>(null)
 
-    fun getRandomRecipe() {
+    fun getRandomRecipe(number: Int) {
         isLoading.value = true
         error.value = null
 
         Log.d("RecipeRandomViewModel", "Inicio de la llamada a la API")
         viewModelScope.launch {
             try {
-                // Realiza la llamada a la API
-                val response = RetrofitService.apiService.getRandomRecipes()
+
+                val response = RetrofitService.apiService.getRandomRecipes(number)
 
                 Log.d("RecipeRandomViewModel", "Response: $response")
-                // Verifica si la lista de recetas no está vacía
+
                 if (response.recipes.isNotEmpty()) {
-                    randomRecipe.value = response.recipes[0] // Accede al primer elemento de la lista
+                    randomRecipes.value = response.recipes
                 } else {
                     error.value = "No se encontraron recetas"
                 }

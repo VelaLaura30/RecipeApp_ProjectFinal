@@ -1,7 +1,11 @@
 [versions]
 agp = "8.5.1"
 coilCompose = "2.2.2"
+coilComposeVersion = "2.x.x"
 converterGson = "2.9.0"
+firebaseAuthKtx = "23.1.0"
+firebaseBom = "33.5.1"
+googleServices = "4.4.2"
 gradleVersion = "8.5.2"
 kotlin = "1.9.0"
 coreKtx = "1.15.0"
@@ -30,7 +34,14 @@ androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRunt
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 build-gradle = { module = "com.android.tools.build:gradle", version.ref = "gradleVersion" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+coil-compose-v2xx = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth-kt = { module = "com.google.firebase:firebase-auth-kt" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
+google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

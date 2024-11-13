@@ -17,6 +17,9 @@ import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModel
 import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModelFactory
 import com.example.recipeapp_projectfinal.db.DatabaseProvider
 import com.example.recipeapp_projectfinal.ui.theme.RecipeApp_ProjectFinalTheme
+//import com.google.firebase.Firebase
+//import com.google.firebase.firestore.firestore
+
 
 
 class MainActivity : ComponentActivity() {
@@ -35,6 +38,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        //val db = Firebase.firestore
         loginViewModel.logAllUsers()
     }
 }

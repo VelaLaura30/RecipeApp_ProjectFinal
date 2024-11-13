@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp_projectfinal.db.UserDao
+//import com.example.recipeapp_projectfinal.firebase.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,14 +15,14 @@ class LoginViewModel(private val userDao: UserDao) : ViewModel() {
     var errorMessage: String = ""
 
     fun authenticate(email: String, password: String) {
-        // Lanzamos la tarea en un hilo de fondo
+
         viewModelScope.launch {
             try {
                 val user = withContext(Dispatchers.IO) {
-                    userDao.getUserByEmail(email) // Esta consulta ahora ocurre en un hilo de fondo
+                    userDao.getUserByEmail(email)
                 }
 
-                // Comprobamos si el usuario existe y la contraseña es correcta
+
                 if (user != null && user.password == password) {
                     isAuthenticated = true
                 } else {
@@ -38,7 +39,7 @@ class LoginViewModel(private val userDao: UserDao) : ViewModel() {
     fun logAllUsers() {
         viewModelScope.launch {
             val users = withContext(Dispatchers.IO) {
-                userDao.getAllUsers() // Suponiendo que tienes una función getAllUsers en UserDao
+                userDao.getAllUsers()
             }
             Log.d("DatabaseLog", "Usuarios en la base de datos: $users")
         }

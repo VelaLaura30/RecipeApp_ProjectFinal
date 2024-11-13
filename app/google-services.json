@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608451757615",
+    "project_id": "recipeapp-831ee",
+    "storage_bucket": "recipeapp-831ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608451757615:android:4032116df7c657c1efa8da",
+        "android_client_info": {
+          "package_name": "com.example.recipeapp_projectfinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh1qgnkiJ0j1OWVpTHzzL3WWV8QNFHKFE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

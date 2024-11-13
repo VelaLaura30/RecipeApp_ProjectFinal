@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id ("kotlin-kapt")
+    id ("com.google.gms.google-services")
 
 }
 
@@ -66,7 +67,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
-    //implementation(libs.androidx.media3.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -84,6 +84,14 @@ dependencies {
     implementation (libs.androidx.room.runtime) // Versión actualizada de Room
     kapt (libs.androidx.room.compiler) // Para anotaciones de Room
     implementation (libs.androidx.room.ktx) // Para soporte de coroutines y Flows
+    implementation(libs.coil.compose.v2xx)
+
+
+    //implementation (platform(libs.firebase.bom))// Versión actualizada de Firebase BOM
+    //implementation (libs.firebase.firestore.ktx)
+    //implementation(libs.firebase.analytics)
+    //implementation (libs.firebase.auth.kt)
+    //implementation (libs.firebase.auth.ktx )   // Asegúrate de que esta es la versión más reciente
 
 
 
