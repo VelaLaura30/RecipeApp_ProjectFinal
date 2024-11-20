@@ -40,7 +40,8 @@ fun RandomRecipeScreen(viewModel: RecipeRandomViewModel) {
             Column(
                 modifier = Modifier
                     .background(Color.White)
-                    .fillMaxSize() // Fondo blanco para el menú lateral
+                    .fillMaxHeight()
+                    .width(250.dp)
             ) {
                 Text(text = "Menú", style = MaterialTheme.typography.headlineMedium)
                 Spacer(modifier = Modifier.height(16.dp))
@@ -241,7 +242,7 @@ fun RecipeCard(recipe: RandomRecipe) {
                 Icon(
                     painter = painterResource(id = R.drawable.preparation), // Usa un icono que represente preparació
                     contentDescription = "Puntuacion",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(25.dp)
                 )
             }
         }
