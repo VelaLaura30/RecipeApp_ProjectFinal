@@ -38,35 +38,35 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Fondo de la imagen
+
             Image(
-                painter = painterResource(id = R.drawable.fondorecetas), // Reemplaza con tu recurso de imagen de fondo
+                painter = painterResource(id = R.drawable.fondorecetas),
                 contentDescription = "Fondo",
                 modifier = Modifier.fillMaxSize(),
                 alignment = Alignment.Center,
-                alpha = 0.3f // Puedes ajustar la opacidad de la imagen de fondo
+                alpha = 0.3f
             )
 
-            // Contenido de la pantalla de login
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
                     .padding(16.dp)
-                    .align(Alignment.Center), // Centrado vertical y horizontal
+                    .align(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                // Logo
+
                 Image(
-                    painter = painterResource(id = R.drawable.icon_app), // Reemplaza con tu recurso de logo
+                    painter = painterResource(id = R.drawable.icon_app),
                     contentDescription = "Logo del sitio de recetas",
                     modifier = Modifier.size(120.dp)
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Título
+
                 Text(
                     text = "Bienvenido a Recetas Deliciosas",
                     style = MaterialTheme.typography.titleLarge,
@@ -77,17 +77,17 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Descripción
+
                 Text(
                     text = "Comparte, descubre y guarda tus recetas favoritas.",
                     style = MaterialTheme.typography.bodyMedium,
                     textAlign = TextAlign.Center,
-                    color = Color.Black.copy(alpha = 0.7f) // Texto blanco con opacidad para mejor visibilidad
+                    color = Color.Black.copy(alpha = 0.7f)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Campo de Email
+
                 OutlinedTextField(
                     value = email.value,
                     onValueChange = { email.value = it },
@@ -97,7 +97,7 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
                     },
                     modifier = Modifier.fillMaxWidth(),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        containerColor = Color.White.copy(alpha = 0.8f) // Fondo blanco con opacidad
+                        containerColor = Color.White.copy(alpha = 0.8f)
                     )
                 )
 

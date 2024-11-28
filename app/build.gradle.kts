@@ -85,13 +85,9 @@ dependencies {
     kapt (libs.androidx.room.compiler) // Para anotaciones de Room
     implementation (libs.androidx.room.ktx) // Para soporte de coroutines y Flows
     implementation(libs.coil.compose.v2xx)
+    implementation (libs.androidx.constraintlayout.compose)
 
 
-    //implementation (platform(libs.firebase.bom))// Versión actualizada de Firebase BOM
-    //implementation (libs.firebase.firestore.ktx)
-    //implementation(libs.firebase.analytics)
-    //implementation (libs.firebase.auth.kt)
-    //implementation (libs.firebase.auth.ktx )   // Asegúrate de que esta es la versión más reciente
 
 
 

@@ -11,6 +11,7 @@ class RecipeRandomViewModel : ViewModel() {
     val randomRecipes = mutableStateOf<List<RandomRecipe>>(emptyList())
     val isLoading = mutableStateOf(false)
     val error = mutableStateOf<String?>(null)
+    val allRecipes = mutableStateOf<List<RandomRecipe>>(emptyList())
 
     fun getRandomRecipe(number: Int) {
         isLoading.value = true
@@ -37,5 +38,18 @@ class RecipeRandomViewModel : ViewModel() {
             }
         }
     }
+
+    fun searchRecipes(query: String) {
+        if (query.isBlank()) {
+            // Mostrar todas las recetas si no hay búsqueda
+            randomRecipes.value = allRecipes.value
+        } else {
+            // Filtrar recetas por el nombre
+            randomRecipes.value = allRecipes.value.filter { recipe ->
+                recipe.title.contains(query, ignoreCase = true)
+            }
+        }
+    }
+
 }
 
