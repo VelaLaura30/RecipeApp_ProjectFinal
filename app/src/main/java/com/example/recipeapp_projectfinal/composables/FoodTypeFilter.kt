@@ -31,10 +31,10 @@ fun FoodTypeFilter(
 
     var expanded by remember { mutableStateOf(false) }
 
-    // Dropdown menu para seleccionar el tipo de comida
+
     Box(
         modifier = Modifier
-            .background(Color.White) // Fondo blanco
+            .background(Color.White)
             .padding(16.dp)
             .fillMaxWidth()
     ) {
@@ -45,7 +45,7 @@ fun FoodTypeFilter(
                 Text(
                     text = selectedFoodType,
                     modifier = Modifier
-                        .clickable { expanded = !expanded } // Mostrar/ocultar el dropdown
+                        .clickable { expanded = !expanded }
                         .padding(16.dp)
                 )
                 DropdownMenu(
@@ -56,8 +56,8 @@ fun FoodTypeFilter(
                         DropdownMenuItem(
                             text = { Text(foodType) },
                             onClick = {
-                                onFoodTypeSelected(foodType) // Seleccionar tipo y filtrar recetas
-                                expanded = false // Cerrar el dropdown
+                                onFoodTypeSelected(foodType)
+                                expanded = false
                             }
                         )
                     }

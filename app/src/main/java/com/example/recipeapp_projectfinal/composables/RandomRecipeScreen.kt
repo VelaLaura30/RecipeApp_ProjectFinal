@@ -1,4 +1,5 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -66,7 +67,11 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                 )
                 Text(text = "Favoritos")
                 Spacer(
-                    modifier = Modifier
+                    modifier = Modifier.clickable{coroutineScope.launch {
+                        drawerState.close()
+                        navController.navigate("favorites")
+                    }
+                    }
                         .height(8.dp)
                         .padding(start = 16.dp)
                 )
@@ -147,7 +152,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                         )
 
                         IconButton(
-                            onClick = { showFilterDialog = !showFilterDialog }, // Mostrar u ocultar el filtro
+                            onClick = { showFilterDialog = !showFilterDialog },
                             modifier = Modifier.constrainAs(filterButton) {
                                 end.linkTo(parent.end)
                                 top.linkTo(searchField.top)
@@ -162,19 +167,19 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                         }
                     }
 
-                    // Si el filtro está activo, mostrar el DropdownMenu con un fondo opaco
+
                     if (showFilterDialog) {
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .background(Color.Black.copy(alpha = 0.4f)) // Fondo oscuro translúcido
+                                .background(Color.Black.copy(alpha = 0.4f))
                         ) {
                             FoodTypeFilter(
                                 selectedFoodType = selectedFoodType,
                                 onFoodTypeSelected = { type ->
                                     selectedFoodType = type
-                                    recipeSearchViewModel.searchRecipes(searchQuery, type) // Filtrar recetas por el tipo seleccionado
-                                    showFilterDialog = false // Cerrar el filtro al seleccionar un tipo
+                                    recipeSearchViewModel.searchRecipes(searchQuery, type)
+                                    showFilterDialog = false
                                 }
                             )
                         }
@@ -235,7 +240,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
 
 @Composable
 fun RecipeCard(recipe: RandomRecipe, navController: NavController) {
-    var isFavorite by remember { mutableStateOf(false) } // Estado para el botón de favoritos
+    var isFavorite by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -249,7 +254,7 @@ fun RecipeCard(recipe: RandomRecipe, navController: NavController) {
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Imagen de la receta con bordes redondeados y proporción 1:1
+
             AsyncImage(
                 model = recipe.image,
                 contentDescription = recipe.title,
@@ -263,14 +268,14 @@ fun RecipeCard(recipe: RandomRecipe, navController: NavController) {
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                // Nombre de la receta
+
                 Text(
                     text = recipe.title,
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
 
-                // Detalles de la receta con iconos
+
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         painter = painterResource(id = R.drawable.timer),
@@ -315,20 +320,27 @@ fun RecipeCard(recipe: RandomRecipe, navController: NavController) {
             }
 
             // Botón para guardar en favoritos
-            IconButton(onClick = { isFavorite = !isFavorite }) {
+            /*IconButton(
+                onClick = {
+                    if (viewModel.favoriteRecipes.contains(recipe)) {
+                        viewModel.removeFromFavorites(recipe) // Elimina de favoritos si ya está
+                    } else {
+                        viewModel.addToFavorites(recipe) // Agrega a favoritos si no está
+                    }
+                }
+            ) {
                 Icon(
-                    imageVector = Icons.Filled.Favorite,
-                    contentDescription = "Guardar en favoritos",
-                    tint = if (isFavorite) Color.Red else Color.Gray
+                    imageVector = if (viewModel.favoriteRecipes.contains(recipe)) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                    contentDescription = "Favoritos"
                 )
-            }
+            }*/
 
-            // Botón para acceder a la preparación de la receta
+
             IconButton(onClick = {
                 navController.navigate("preparation/${recipe.id}")
             }) {
                 Icon(
-                    painter = painterResource(id = R.drawable.preparation), // Usa un icono que represente preparació
+                    painter = painterResource(id = R.drawable.preparation),
                     contentDescription = "Puntuacion",
                     modifier = Modifier.size(25.dp)
                 )

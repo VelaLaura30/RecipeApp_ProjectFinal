@@ -21,7 +21,7 @@ fun RecipeList(recipes: List<Recipe>) {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)  // Mayor espaciado entre recetas
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(recipes) { recipe ->
             RecipeItemSimple(recipe)
@@ -35,27 +35,27 @@ fun RecipeItemSimple(recipe: Recipe) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(12.dp))  // Fondo con borde redondeado
-            .shadow(4.dp, shape = RoundedCornerShape(12.dp))  // Sombra ligera para elevar el elemento
+            .background(MaterialTheme.colorScheme.surfaceVariant, shape = RoundedCornerShape(12.dp))
+            .shadow(4.dp, shape = RoundedCornerShape(12.dp))
             .padding(16.dp)
     ) {
-        // Mostrar Título
+
         Text(
             text = recipe.title,
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(bottom = 8.dp)  // Espaciado debajo del título
+            modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        // Mostrar Imagen (opcional)
+
         AsyncImage(
             model = recipe.image,
             contentDescription = recipe.title,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(180.dp)  // Imagen un poco más grande para mejor visualización
-                .clip(RoundedCornerShape(12.dp))  // Bordes redondeados en la imagen
-                .padding(bottom = 8.dp)  // Espaciado debajo de la imagen
+                .height(180.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .padding(bottom = 8.dp)
         )
         }
     }

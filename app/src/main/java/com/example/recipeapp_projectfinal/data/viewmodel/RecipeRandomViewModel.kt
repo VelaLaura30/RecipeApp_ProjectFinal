@@ -1,10 +1,13 @@
 package com.example.recipeapp_projectfinal.data.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp_projectfinal.data.api.models.PreparationRecipe
 import com.example.recipeapp_projectfinal.data.api.models.RandomRecipe
+import com.example.recipeapp_projectfinal.data.api.models.Recipe
 import kotlinx.coroutines.launch
 
 class RecipeRandomViewModel : ViewModel() {
@@ -12,6 +15,20 @@ class RecipeRandomViewModel : ViewModel() {
     val isLoading = mutableStateOf(false)
     val error = mutableStateOf<String?>(null)
     val allRecipes = mutableStateOf<List<RandomRecipe>>(emptyList())
+    val recipeDetails = mutableStateOf<PreparationRecipe?>(null)
+
+    val _favoriteRecipes = mutableStateListOf<Recipe>()
+    val favoriteRecipes: List<Recipe> = _favoriteRecipes
+
+    fun addToFavorites(recipe: Recipe) {
+        if (!_favoriteRecipes.contains(recipe)) {
+            _favoriteRecipes.add(recipe)
+        }
+    }
+
+    fun removeFromFavorites(recipe: Recipe) {
+        _favoriteRecipes.remove(recipe)
+    }
 
     fun getRandomRecipe(number: Int) {
         isLoading.value = true
@@ -41,19 +58,28 @@ class RecipeRandomViewModel : ViewModel() {
 
     fun searchRecipes(query: String) {
         if (query.isBlank()) {
-            // Mostrar todas las recetas si no hay búsqueda
+
             randomRecipes.value = allRecipes.value
         } else {
-            // Filtrar recetas por el nombre
+
             randomRecipes.value = allRecipes.value.filter { recipe ->
                 recipe.title.contains(query, ignoreCase = true)
             }
         }
     }
 
-    fun getRecipeById(id: String): RandomRecipe? {
-        return randomRecipes.value.find { it.id.toString() == id }
+    fun fetchRecipeById(recipeId: Int) {
+        viewModelScope.launch {
+            try {
+                val recipe = RetrofitService.apiService.getRecipeById(recipeId)
+                recipeDetails.value = recipe
+            } catch (e: Exception) {
+                Log.e("RecipeRandomViewModel", "Error fetching recipe by ID: ${e.message}", e)
+                recipeDetails.value = null
+            }
+        }
     }
+
 
 
 }

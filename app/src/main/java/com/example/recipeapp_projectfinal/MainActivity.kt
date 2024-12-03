@@ -5,13 +5,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+//import com.example.recipeapp_projectfinal.composables.FavoriteRecipesScreen
 import com.example.recipeapp_projectfinal.composables.LoginScreen
 import com.example.recipeapp_projectfinal.composables.MainScreen
 import com.example.recipeapp_projectfinal.composables.PreparationScreen
@@ -27,7 +32,7 @@ import com.example.recipeapp_projectfinal.ui.theme.RecipeApp_ProjectFinalTheme
 
 
 class MainActivity : ComponentActivity() {
-    // Usando viewModels con un factory para obtener el LoginViewModel
+
     private val loginViewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(DatabaseProvider.getInstance(applicationContext).userDao())
     }
@@ -37,12 +42,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             RecipeApp_ProjectFinalTheme {
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    // Pasa el loginViewModel a RecipeAppNavHost
+
                     RecipeAppNavHost(loginViewModel = loginViewModel)
                 }
             }
         }
-        //val db = Firebase.firestore
+
         loginViewModel.logAllUsers()
     }
 }
@@ -55,35 +60,47 @@ fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
         composable("login") {
             LoginScreen(
                 onLoginClick = {
-                    navController.navigate("recipes") // Cuando inicie sesión, va a la pantalla de recetas
+                    navController.navigate("recipes")
                 },
                 onNavigateToRegister = {
-                    navController.navigate("register") // Navegar a la pantalla de registro
+                    navController.navigate("register")
                 },
-                loginViewModel = loginViewModel // Pasa el LoginViewModel aquí
+                loginViewModel = loginViewModel
             )
         }
         composable("register") {
             RegisterScreen(onRegisterClick = {
-                navController.navigate("login") // Volver a Login después del registro
+                navController.navigate("login")
             })
         }
         composable("recipes") {
-            MainScreen(navController) // Aquí va la pantalla de recetas
+            MainScreen(navController)
         }
         composable("preparation/{recipeId}") { backStackEntry ->
-            val recipeId = backStackEntry.arguments?.getString("recipeId")
+            val recipeId = backStackEntry.arguments?.getString("recipeId")?.toIntOrNull()
             val viewModel: RecipeRandomViewModel = viewModel()
 
-            // Busca la receta por ID
-            val recipe = viewModel.getRecipeById(recipeId?:"")
+
+            LaunchedEffect(recipeId) {
+                if (recipeId != null) {
+                    viewModel.fetchRecipeById(recipeId)
+                }
+            }
+
+            
+            val recipe = viewModel.recipeDetails.value
 
             if (recipe != null) {
-                PreparationScreen(preparation = recipe.sourceName ?: "Instrucciones no disponibles")
+                PreparationScreen(preparationRecipe = recipe)
             } else {
-                PreparationScreen(preparation = "Receta no encontrada")
+                Text("Cargando receta...", modifier = Modifier.fillMaxSize())
             }
         }
+
+        /*composable("favorites") {
+            FavoriteRecipesScreen(viewModel = recipeRandomViewModel, navController = navController)
+        }*/
+
     }
 }
 

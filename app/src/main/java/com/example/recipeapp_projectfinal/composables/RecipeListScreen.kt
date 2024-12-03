@@ -23,55 +23,50 @@ fun RecipeListScreen(
     searchQuery: String,
     viewModel: RecipeSearchViewModel
 ) {
-    // Observa el estado de las recetas desde el ViewModel
+
     val recipes by viewModel.recipes
     val isLoading by viewModel.isLoading
     val error by viewModel.error
 
-    // Layout principal
+
     Column(modifier = Modifier.padding(16.dp)) {
         if (isLoading) {
-            // Mostrar un indicador de carga mientras se buscan las recetas
+
             Text("Cargando recetas...")
         } else if (error != null) {
-            // Mostrar mensaje de error si hay algún problema
+
             Text("Error: $error")
         } else if (recipes.isNotEmpty()) {
-            // Mostrar las recetas filtradas si están disponibles
+
             LazyColumn {
                 items(recipes) { recipe ->
-                    RecipeItem(recipe) // Llamamos a un Composable para mostrar cada receta
+                    RecipeItem(recipe)
                 }
             }
         } else {
-            // Si no hay recetas, mostrar un mensaje
-            //Text("No se encontraron recetas.")
         }
     }
 }
 
 @Composable
 fun RecipeItem(recipe: Recipe) {
-    // Tarjeta para cada receta
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Mostrar la imagen de la receta
+
             Image(
-                painter = rememberImagePainter(recipe.image), // Cargar imagen desde la URL
+                painter = rememberImagePainter(recipe.image),
                 contentDescription = recipe.title,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp) // Ajusta el tamaño de la imagen
+                    .height(200.dp)
             )
 
-            // Mostrar el título de la receta
             Text(
                 text = recipe.title,
-                //style = MaterialTheme.typography.h6,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }

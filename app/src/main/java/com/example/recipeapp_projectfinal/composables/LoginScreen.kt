@@ -103,7 +103,7 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Campo de Contraseña
+
                 OutlinedTextField(
                     value = password.value,
                     onValueChange = { password.value = it },
@@ -130,7 +130,7 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
                     )
                 }
 
-                // Botón de Iniciar Sesión
+
                 Button(
                     onClick = {
                         loginViewModel.authenticate(email.value, password.value)
@@ -145,22 +145,16 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Texto de registro
+
                 Text(
                     text = "¿No tienes una cuenta? Regístrate",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.clickable {
-                        onNavigateToRegister() // Navegar a la pantalla de registro
+                        onNavigateToRegister()
                     }
                 )
             }
         }
     }
 }
-
-/*@Preview(showBackground = true)
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen(onLoginClick = { /* Acción de login */ }, onNavigateToRegister = { })
-}*/

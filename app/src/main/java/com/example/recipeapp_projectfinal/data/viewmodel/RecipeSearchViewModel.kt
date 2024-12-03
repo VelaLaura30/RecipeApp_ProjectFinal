@@ -18,29 +18,28 @@ class RecipeSearchViewModel : ViewModel() {
     private val _error = mutableStateOf<String?>(null)
     val error: State<String?> = _error
 
-    // Función para buscar recetas con un tipo fijo para prueba
+
     fun searchRecipes(query: String, type: String?) {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                // Tipo de receta fijo para pruebas, por ejemplo, "main course"
-                val tipoPredefinido = "main course"  // Puedes cambiar esto a otro tipo para probar
-                Log.d("FILTER_LOG", "Filtrando recetas con el tipo: $tipoPredefinido") // Verificación del tipo
+                val tipoPredefinido = "main course"
+                Log.d("FILTER_LOG", "Filtrando recetas con el tipo: $tipoPredefinido")
                 val response = RetrofitService.apiService.searchRecipes(
                     query = query,
-                    type = tipoPredefinido  // Tipo fijo para probar el filtro
+                    type = tipoPredefinido
                 )
 
-                // Guardamos las recetas obtenidas
+
                 _recipes.value = response.results
 
-                // Log para verificar qué recetas han sido obtenidas
+
                 Log.d("FILTER_LOG", "Recetas filtradas: ${response.results.joinToString { it.title }}")
 
                 _error.value = null
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"
-                Log.e("FILTER_LOG", "Error al buscar recetas: ${e.message}") // Log de error
+                Log.e("FILTER_LOG", "Error al buscar recetas: ${e.message}")
             } finally {
                 _isLoading.value = false
             }

@@ -50,13 +50,13 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
-            // Fondo de la imagen
+
             Image(
-                painter = painterResource(id = R.drawable.fondorecetas), // Reemplaza con tu recurso de imagen de fondo
+                painter = painterResource(id = R.drawable.fondorecetas),
                 contentDescription = "Fondo",
                 modifier = Modifier.fillMaxSize(),
                 alignment = Alignment.Center,
-                alpha = 0.3f // Puedes ajustar la opacidad de la imagen de fondo
+                alpha = 0.3f
             )
             Column(
                 modifier = Modifier
@@ -66,16 +66,16 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                // Logo
+
                 Image(
-                    painter = painterResource(id = R.drawable.icon_app), // Reemplaza con tu recurso de logo
+                    painter = painterResource(id = R.drawable.icon_app),
                     contentDescription = "Logo del sitio de recetas",
                     modifier = Modifier.size(120.dp)
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Título
+
                 Text(
                     text = "Únete a Recetas Deliciosas",
                     style = MaterialTheme.typography.titleLarge,
@@ -85,7 +85,7 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Descripción
+
                 Text(
                     text = "Crea una cuenta para compartir y descubrir recetas increíbles.",
                     style = MaterialTheme.typography.bodyMedium,
@@ -95,7 +95,7 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Campo de Nombre
+
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
@@ -108,7 +108,7 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Campo de Email
+
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
@@ -121,7 +121,7 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Campo de Contraseña
+
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
@@ -136,7 +136,7 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Campo de Confirmar Contraseña
+
                 OutlinedTextField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
@@ -145,22 +145,21 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                         Icon(Icons.Rounded.Lock, contentDescription = "Password Icon")
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation()
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Botón de Registro
+
                 Button(
                     onClick = {
-                        // Validar que los campos no estén vacíos y que las contraseñas coincidan
+
                         if (name.isNotBlank() && email.isNotBlank() && password == confirmPassword) {
-                            // Crear un objeto `User`
+
                             val user = User(name = name, email = email, password = password)
 
-                            // Llamar a `registerUser` para guardar el usuario en la base de datos
                             registerUser(user, userDao) {
-                                // Acción después de registrar, como navegar a otra pantalla
                                 onRegisterClick()
                             }
                         } else {
@@ -176,13 +175,13 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Texto de inicio de sesión
+
                 Text(
                     text = "¿Ya tienes una cuenta? Inicia sesión",
                     color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.clickable {
-                        onRegisterClick() // Navegar al login
+                        onRegisterClick()
                     }
                 )
             }
@@ -193,10 +192,9 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
 
 private fun registerUser(user: User, userDao: UserDao, onRegisterSuccess: () -> Unit) {
     GlobalScope.launch(Dispatchers.IO) {
-        // Insertar usuario en la base de datos
+
         userDao.insertUser(user)
         Log.d("DatabaseLog", "Usuario registrado: $user")
-        // Volver al hilo principal para mostrar mensaje de éxito
         withContext(Dispatchers.Main) {
             onRegisterSuccess()
         }
