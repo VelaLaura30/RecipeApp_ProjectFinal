@@ -313,7 +313,7 @@ fun RecipeCard(recipe: RandomRecipe, navController: NavController) {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "${recipe.spoonacularScore}/100",
+                        text = "%.1f/100".format(recipe.spoonacularScore),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }

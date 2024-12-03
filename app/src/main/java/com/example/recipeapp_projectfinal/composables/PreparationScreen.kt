@@ -14,6 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -24,6 +25,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,10 +43,12 @@ import com.example.recipeapp_projectfinal.data.api.models.RandomRecipe
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PreparationScreen(preparationRecipe: PreparationRecipe) {
+    var showDialog by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(preparationRecipe.title) }
+                title = { Text(preparationRecipe.title) },
             )
         }
     ) { paddingValues ->
@@ -53,7 +60,6 @@ fun PreparationScreen(preparationRecipe: PreparationRecipe) {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-
             Image(
                 painter = rememberAsyncImagePainter(preparationRecipe.image),
                 contentDescription = null,
@@ -63,10 +69,9 @@ fun PreparationScreen(preparationRecipe: PreparationRecipe) {
                     .clip(MaterialTheme.shapes.medium)
             )
 
-
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-
                 Text("Información Básica", style = MaterialTheme.typography.titleMedium)
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxWidth()
@@ -77,35 +82,54 @@ fun PreparationScreen(preparationRecipe: PreparationRecipe) {
                     InfoCard("Preparación", "${preparationRecipe.preparationMinutes} min", R.drawable.icon_app)
                 }
 
-
                 Text("Puntuación", style = MaterialTheme.typography.titleMedium)
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalArrangement = Arrangement.Center, // Centrar íconos
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     InfoCard("Likes", preparationRecipe.aggregateLikes.toString(), R.drawable.like)
-                    InfoCard("Puntuación", preparationRecipe.spoonacularScore.toString(), R.drawable.puntuacion)
+                    InfoCard(
+                        "Puntuación",
+                        "%.1f".format(preparationRecipe.spoonacularScore / 100.0), // Dividir por 100
+                        R.drawable.puntuacion
+                    )
                 }
-
 
                 Text("Características Saludables", style = MaterialTheme.typography.titleMedium)
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    InfoCard("Salud", preparationRecipe.healthScore.toString(), R.drawable.salud)
+                    InfoCard("Salud", "%.1f".format(preparationRecipe.healthScore / 100.0), R.drawable.salud)
                     InfoCard("Vegano", if (preparationRecipe.vegan) "Sí" else "No", R.drawable.vegano)
                     InfoCard("Vegetariano", if (preparationRecipe.vegetarian) "Sí" else "No", R.drawable.vegetariano)
                     InfoCard("Popular", if (preparationRecipe.veryPopular) "Sí" else "No", R.drawable.popular)
                 }
             }
 
-
             Button(
-                onClick = {  },
+                onClick = { showDialog = true },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text("Más información")
+            }
+
+            if (showDialog) {
+                AlertDialog(
+                    onDismissRequest = { showDialog = false },
+                    confirmButton = {
+                        Button(onClick = { showDialog = false }) {
+                            Text("Cerrar")
+                        }
+                    },
+                    title = { Text("Enlaces de Información") },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("Spoonacular: ${preparationRecipe.spoonacularSourceUrl}")
+                            Text("Fuente: ${preparationRecipe.sourceUrl}")
+                        }
+                    }
+                )
             }
         }
     }
@@ -126,6 +150,3 @@ fun InfoCard(label: String, value: String, iconResId: Int) {
         Text(value, style = MaterialTheme.typography.bodyMedium)
     }
 }
-
-
-
