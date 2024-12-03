@@ -51,5 +51,10 @@ class RecipeRandomViewModel : ViewModel() {
         }
     }
 
+    fun getRecipeById(id: String): RandomRecipe? {
+        return randomRecipes.value.find { it.id.toString() == id }
+    }
+
+
 }
 

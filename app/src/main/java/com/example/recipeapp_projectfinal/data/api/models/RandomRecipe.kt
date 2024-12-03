@@ -7,5 +7,6 @@ data class RandomRecipe(
     val readyInMinutes: Int,
     val sourceUrl: String,
     val aggregateLikes: Int,
-    val spoonacularScore: Double
+    val spoonacularScore: Double,
+    val sourceName: String
 )

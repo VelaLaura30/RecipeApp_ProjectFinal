@@ -9,13 +9,16 @@ import androidx.navigation.NavController
 import com.example.recipeapp_projectfinal.data.viewmodel.RecipeSearchViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavController) {
     val viewModel: RecipeRandomViewModel = viewModel()
     val searchViewModel: RecipeSearchViewModel = viewModel()
 
     LaunchedEffect(Unit) {
-        viewModel.getRandomRecipe(5)
+        viewModel.getRandomRecipe(20)
     }
 
-    RandomRecipeScreen(recipeRandomViewModel = viewModel, recipeSearchViewModel = searchViewModel)
+    RandomRecipeScreen(
+        recipeRandomViewModel = viewModel,
+        recipeSearchViewModel = searchViewModel,
+        navController = navController)
 }

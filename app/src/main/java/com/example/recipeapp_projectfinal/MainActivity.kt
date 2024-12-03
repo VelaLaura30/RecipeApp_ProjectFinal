@@ -14,9 +14,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.recipeapp_projectfinal.composables.LoginScreen
 import com.example.recipeapp_projectfinal.composables.MainScreen
+import com.example.recipeapp_projectfinal.composables.PreparationScreen
 import com.example.recipeapp_projectfinal.composables.RegisterScreen
 import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModel
 import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModelFactory
+import com.example.recipeapp_projectfinal.data.viewmodel.RecipeRandomViewModel
 import com.example.recipeapp_projectfinal.db.DatabaseProvider
 import com.example.recipeapp_projectfinal.ui.theme.RecipeApp_ProjectFinalTheme
 //import com.google.firebase.Firebase
@@ -67,7 +69,20 @@ fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
             })
         }
         composable("recipes") {
-            MainScreen() // Aquí va la pantalla de recetas
+            MainScreen(navController) // Aquí va la pantalla de recetas
+        }
+        composable("preparation/{recipeId}") { backStackEntry ->
+            val recipeId = backStackEntry.arguments?.getString("recipeId")
+            val viewModel: RecipeRandomViewModel = viewModel()
+
+            // Busca la receta por ID
+            val recipe = viewModel.getRecipeById(recipeId?:"")
+
+            if (recipe != null) {
+                PreparationScreen(preparation = recipe.sourceName ?: "Instrucciones no disponibles")
+            } else {
+                PreparationScreen(preparation = "Receta no encontrada")
+            }
         }
     }
 }

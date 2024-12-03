@@ -45,7 +45,7 @@ fun RecipeListScreen(
             }
         } else {
             // Si no hay recetas, mostrar un mensaje
-            Text("No se encontraron recetas.")
+            //Text("No se encontraron recetas.")
         }
     }
 }
