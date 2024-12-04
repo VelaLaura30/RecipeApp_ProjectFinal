@@ -10,5 +10,6 @@ data class NewRecipe(
     val image: ByteArray,
     val readyInMinutes: Int,
     val ingredients: String,
-    val sourceUrl: String = ""
+    val sourceUrl: String = "",
+    val creator: String? = null
 )

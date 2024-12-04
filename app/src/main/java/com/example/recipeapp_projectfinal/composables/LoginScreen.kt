@@ -1,5 +1,6 @@
 package com.example.recipeapp_projectfinal.composables
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -26,12 +28,14 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.recipeapp_projectfinal.R
 import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModel
 import com.example.recipeapp_projectfinal.db.UserDao
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Unit, loginViewModel: LoginViewModel) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val context = LocalContext.current
 
 
     Scaffold { paddingValues ->
@@ -133,7 +137,7 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
 
                 Button(
                     onClick = {
-                        loginViewModel.authenticate(email.value, password.value)
+                        loginViewModel.authenticate(context, email.value, password.value)
                         if (loginViewModel.isAuthenticated) {
                             onLoginClick(true)
                         }

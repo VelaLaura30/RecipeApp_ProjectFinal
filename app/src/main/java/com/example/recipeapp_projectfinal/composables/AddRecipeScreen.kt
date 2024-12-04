@@ -112,7 +112,8 @@ fun AddRecipeScreen(viewModel: NewRecipeViewModel, onRecipeSaved: () -> Unit) {
                         image = imageBytes,
                         readyInMinutes = prepTime.value.toInt(),
                         ingredients = ingredients.value,
-                        sourceUrl = recipeUrl.value
+                        sourceUrl = recipeUrl.value,
+                        creator = viewModel.getUserName(context)
                     )
                     viewModel.addRecipe(newRecipe)
 

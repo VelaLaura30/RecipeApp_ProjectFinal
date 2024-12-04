@@ -89,6 +89,13 @@ fun RecipeCard(recipe: NewRecipe) {
                     color = Color.Gray,
                     maxLines = 1
                 )
+                Text(
+                    text = "Creada por: ${recipe.creator ?: "Desconocido"}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color.Gray,
+                    maxLines = 1
+                )
+
             }
         }
     }

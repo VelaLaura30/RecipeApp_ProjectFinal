@@ -1,3 +1,4 @@
+import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,5 +32,10 @@ class NewRecipeViewModel(private val dao: NewRecipeDao) : ViewModel() {
             dao.deleteAllRecipes()
             loadRecipes()  // Actualiza la lista después de eliminar
         }
+    }
+
+    fun getUserName(context: Context): String {
+        val sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("user_name", "Usuario desconocido") ?: "Usuario desconocido"
     }
 }
