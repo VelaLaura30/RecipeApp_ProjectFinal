@@ -59,12 +59,6 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                         .height(16.dp)
                         .padding(start = 16.dp)
                 )
-                Text(text = "Inicio")
-                Spacer(
-                    modifier = Modifier
-                        .height(8.dp)
-                        .padding(16.dp)
-                )
                 Text(text = "Favoritos")
                 Spacer(
                     modifier = Modifier.clickable{coroutineScope.launch {
@@ -75,7 +69,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                         .height(8.dp)
                         .padding(start = 16.dp)
                 )
-                Text(text = "Actividad de usuarios")
+                Text(text = "Recetas agregadas")
                 Spacer(
                     modifier = Modifier.padding(start = 16.dp)
                 )
@@ -101,7 +95,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                     )
                 },
                 floatingActionButton = {
-                    FloatingActionButton(onClick = { /* Acción para agregar receta */ }) {
+                    FloatingActionButton(onClick = { navController.navigate("addRecipeScreen") }) {
                         Icon(Icons.Filled.Add, contentDescription = "Agregar receta")
                     }
                 }
@@ -205,7 +199,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                         }
                     } else {
                         Text(
-                            text = "Recetas aleatorias:",
+                            text = "Recetas populares:",
                             style = MaterialTheme.typography.headlineSmall,
                             modifier = Modifier.padding(16.dp)
                         )

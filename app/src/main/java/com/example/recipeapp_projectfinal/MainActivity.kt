@@ -1,5 +1,6 @@
 package com.example.recipeapp_projectfinal
 
+import NewRecipeViewModel
 import RandomRecipeScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,10 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.recipeapp_projectfinal.composables.AddRecipeScreen
 //import com.example.recipeapp_projectfinal.composables.FavoriteRecipesScreen
 import com.example.recipeapp_projectfinal.composables.LoginScreen
 import com.example.recipeapp_projectfinal.composables.MainScreen
@@ -23,6 +26,7 @@ import com.example.recipeapp_projectfinal.composables.PreparationScreen
 import com.example.recipeapp_projectfinal.composables.RegisterScreen
 import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModel
 import com.example.recipeapp_projectfinal.data.viewmodel.LoginViewModelFactory
+import com.example.recipeapp_projectfinal.data.viewmodel.NewRecipeViewModelFactory
 import com.example.recipeapp_projectfinal.data.viewmodel.RecipeRandomViewModel
 import com.example.recipeapp_projectfinal.db.DatabaseProvider
 import com.example.recipeapp_projectfinal.ui.theme.RecipeApp_ProjectFinalTheme
@@ -36,6 +40,10 @@ class MainActivity : ComponentActivity() {
     private val loginViewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(DatabaseProvider.getInstance(applicationContext).userDao())
     }
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +63,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
     val navController = rememberNavController()
+
+    // Initialize the NewRecipeViewModel with the correct factory
+    val newRecipeViewModel: NewRecipeViewModel = viewModel(
+        factory = NewRecipeViewModelFactory(DatabaseProvider.getInstance(LocalContext.current).newRecipeDao())
+    )
 
     NavHost(navController = navController, startDestination = "login") {
         composable("login") {
@@ -80,14 +93,12 @@ fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
             val recipeId = backStackEntry.arguments?.getString("recipeId")?.toIntOrNull()
             val viewModel: RecipeRandomViewModel = viewModel()
 
-
             LaunchedEffect(recipeId) {
                 if (recipeId != null) {
                     viewModel.fetchRecipeById(recipeId)
                 }
             }
 
-            
             val recipe = viewModel.recipeDetails.value
 
             if (recipe != null) {
@@ -96,12 +107,16 @@ fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
                 Text("Cargando receta...", modifier = Modifier.fillMaxSize())
             }
         }
-
-        /*composable("favorites") {
-            FavoriteRecipesScreen(viewModel = recipeRandomViewModel, navController = navController)
-        }*/
-
+        composable("addRecipeScreen") {
+            AddRecipeScreen(
+                viewModel = newRecipeViewModel,
+                onRecipeSaved = {
+                    navController.navigate("recipes") // Navigate after saving recipe
+                }
+            )
+        }
     }
 }
+
 
 
