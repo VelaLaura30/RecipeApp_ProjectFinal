@@ -52,27 +52,42 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                     .background(Color.White)
                     .fillMaxHeight()
                     .width(250.dp)
+                    .padding(16.dp)
             ) {
                 Text(text = "Menú", style = MaterialTheme.typography.headlineMedium)
-                Spacer(
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Favoritos
+                Row(
                     modifier = Modifier
-                        .height(16.dp)
-                        .padding(start = 16.dp)
-                )
-                Text(text = "Favoritos")
-                Spacer(
-                    modifier = Modifier.clickable{coroutineScope.launch {
-                        drawerState.close()
-                        navController.navigate("favorites")
-                    }
-                    }
-                        .height(8.dp)
-                        .padding(start = 16.dp)
-                )
-                Text(text = "Recetas agregadas")
-                Spacer(
-                    modifier = Modifier.padding(start = 16.dp)
-                )
+                        .fillMaxWidth()
+                        .clickable {
+                            coroutineScope.launch {
+                                drawerState.close()
+                                navController.navigate("favorites")
+                            }
+                        }
+                        .padding(vertical = 8.dp)
+                ) {
+                    Text(text = "Favoritos", style = MaterialTheme.typography.bodyLarge)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Recetas agregadas
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            coroutineScope.launch {
+                                drawerState.close()
+                                navController.navigate("allRecipesScreen")
+                            }
+                        }
+                        .padding(vertical = 8.dp)
+                ) {
+                    Text(text = "Recetas agregadas", style = MaterialTheme.typography.bodyLarge)
+                }
             }
         },
         content = {
