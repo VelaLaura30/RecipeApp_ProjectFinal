@@ -19,6 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.recipeapp_projectfinal.composables.AddRecipeScreen
+import com.example.recipeapp_projectfinal.composables.AllRecipesScreen
 //import com.example.recipeapp_projectfinal.composables.FavoriteRecipesScreen
 import com.example.recipeapp_projectfinal.composables.LoginScreen
 import com.example.recipeapp_projectfinal.composables.MainScreen
@@ -30,8 +31,7 @@ import com.example.recipeapp_projectfinal.data.viewmodel.NewRecipeViewModelFacto
 import com.example.recipeapp_projectfinal.data.viewmodel.RecipeRandomViewModel
 import com.example.recipeapp_projectfinal.db.DatabaseProvider
 import com.example.recipeapp_projectfinal.ui.theme.RecipeApp_ProjectFinalTheme
-//import com.google.firebase.Firebase
-//import com.google.firebase.firestore.firestore
+
 
 
 
@@ -40,9 +40,6 @@ class MainActivity : ComponentActivity() {
     private val loginViewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(DatabaseProvider.getInstance(applicationContext).userDao())
     }
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,9 +108,12 @@ fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
             AddRecipeScreen(
                 viewModel = newRecipeViewModel,
                 onRecipeSaved = {
-                    navController.navigate("recipes") // Navigate after saving recipe
+                    navController.navigate("allRecipesScreen") // Navigate after saving recipe
                 }
             )
+        }
+        composable("allRecipesScreen") {
+            AllRecipesScreen(viewModel = newRecipeViewModel)
         }
     }
 }

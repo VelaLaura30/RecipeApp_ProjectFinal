@@ -14,7 +14,7 @@ class NewRecipeViewModel(private val dao: NewRecipeDao) : ViewModel() {
     fun addRecipe(recipe: NewRecipe) {
         viewModelScope.launch {
             dao.insertRecipe(recipe)
-            loadRecipes()  
+            loadRecipes()
         }
     }
 
