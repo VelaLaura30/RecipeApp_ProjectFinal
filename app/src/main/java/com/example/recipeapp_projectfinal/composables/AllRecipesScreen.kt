@@ -55,7 +55,7 @@ fun RecipeCard(recipe: NewRecipe) {
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Imagen de la receta
+
             recipe.image?.let {
                 Image(
                     painter = rememberAsyncImagePainter(it),

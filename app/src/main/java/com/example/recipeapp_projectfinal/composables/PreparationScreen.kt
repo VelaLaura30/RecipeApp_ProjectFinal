@@ -84,13 +84,13 @@ fun PreparationScreen(preparationRecipe: PreparationRecipe) {
 
                 Text("Puntuación", style = MaterialTheme.typography.titleMedium)
                 Row(
-                    horizontalArrangement = Arrangement.Center, // Centrar íconos
+                    horizontalArrangement = Arrangement.Center,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     InfoCard("Likes", preparationRecipe.aggregateLikes.toString(), R.drawable.like)
                     InfoCard(
                         "Puntuación",
-                        "%.1f".format(preparationRecipe.spoonacularScore / 100.0), // Dividir por 100
+                        "%.1f".format(preparationRecipe.spoonacularScore),
                         R.drawable.puntuacion
                     )
                 }

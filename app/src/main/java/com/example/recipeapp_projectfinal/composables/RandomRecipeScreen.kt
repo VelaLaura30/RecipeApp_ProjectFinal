@@ -57,7 +57,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
                 Text(text = "Menú", style = MaterialTheme.typography.headlineMedium)
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Favoritos
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -74,7 +74,7 @@ fun RandomRecipeScreen(recipeRandomViewModel: RecipeRandomViewModel, recipeSearc
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Recetas agregadas
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -327,23 +327,6 @@ fun RecipeCard(recipe: RandomRecipe, navController: NavController) {
                     )
                 }
             }
-
-            // Botón para guardar en favoritos
-            /*IconButton(
-                onClick = {
-                    if (viewModel.favoriteRecipes.contains(recipe)) {
-                        viewModel.removeFromFavorites(recipe) // Elimina de favoritos si ya está
-                    } else {
-                        viewModel.addToFavorites(recipe) // Agrega a favoritos si no está
-                    }
-                }
-            ) {
-                Icon(
-                    imageVector = if (viewModel.favoriteRecipes.contains(recipe)) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                    contentDescription = "Favoritos"
-                )
-            }*/
-
 
             IconButton(onClick = {
                 navController.navigate("preparation/${recipe.id}")

@@ -20,7 +20,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.recipeapp_projectfinal.composables.AddRecipeScreen
 import com.example.recipeapp_projectfinal.composables.AllRecipesScreen
-//import com.example.recipeapp_projectfinal.composables.FavoriteRecipesScreen
 import com.example.recipeapp_projectfinal.composables.LoginScreen
 import com.example.recipeapp_projectfinal.composables.MainScreen
 import com.example.recipeapp_projectfinal.composables.PreparationScreen
@@ -61,7 +60,7 @@ class MainActivity : ComponentActivity() {
 fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
     val navController = rememberNavController()
 
-    // Initialize the NewRecipeViewModel with the correct factory
+
     val newRecipeViewModel: NewRecipeViewModel = viewModel(
         factory = NewRecipeViewModelFactory(DatabaseProvider.getInstance(LocalContext.current).newRecipeDao())
     )
@@ -108,7 +107,7 @@ fun RecipeAppNavHost(loginViewModel: LoginViewModel) {
             AddRecipeScreen(
                 viewModel = newRecipeViewModel,
                 onRecipeSaved = {
-                    navController.navigate("allRecipesScreen") // Navigate after saving recipe
+                    navController.navigate("allRecipesScreen")
                 }
             )
         }

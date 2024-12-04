@@ -119,7 +119,7 @@ fun LoginScreen(onLoginClick: (Boolean) -> Unit, onNavigateToRegister: () -> Uni
                     modifier = Modifier.fillMaxWidth(),
                     visualTransformation = PasswordVisualTransformation(),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        containerColor = Color.White.copy(alpha = 0.8f) // Fondo blanco con opacidad
+                        containerColor = Color.White.copy(alpha = 0.8f)
                     )
                 )
 

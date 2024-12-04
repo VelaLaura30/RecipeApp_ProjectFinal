@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,6 +87,11 @@ dependencies {
     implementation (libs.androidx.room.ktx) // Para soporte de coroutines y Flows
     implementation(libs.coil.compose.v2xx)
     implementation (libs.androidx.constraintlayout.compose)
+    testImplementation (libs.junit)
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation (libs.androidx.core.testing)
+    testImplementation (libs.kotlinx.coroutines.test)
 
 
 

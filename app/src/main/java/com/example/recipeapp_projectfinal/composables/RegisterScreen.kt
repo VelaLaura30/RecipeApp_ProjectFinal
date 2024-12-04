@@ -23,6 +23,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -103,7 +104,9 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                     leadingIcon = {
                         Icon(Icons.Filled.Person, contentDescription = "User Icon")
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("nameField")
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -116,7 +119,9 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                     leadingIcon = {
                         Icon(Icons.Filled.Email, contentDescription = "Email Icon")
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("emailField")
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -130,7 +135,9 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                         Icon(Icons.Rounded.Lock, contentDescription = "Password Icon")
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("passwordField"),
                     visualTransformation = PasswordVisualTransformation()
                 )
 
@@ -145,20 +152,18 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                         Icon(Icons.Rounded.Lock, contentDescription = "Password Icon")
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .testTag("confirmPasswordField"),
                     visualTransformation = PasswordVisualTransformation()
                 )
-
                 Spacer(modifier = Modifier.height(24.dp))
 
 
                 Button(
                     onClick = {
-
                         if (name.isNotBlank() && email.isNotBlank() && password == confirmPassword) {
-
                             val user = User(name = name, email = email, password = password)
-
                             registerUser(user, userDao) {
                                 onRegisterClick()
                             }
@@ -169,6 +174,7 @@ fun RegisterScreen(onRegisterClick: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp)
+                        .testTag("registerButton")
                 ) {
                     Text(text = "Registrarse")
                 }

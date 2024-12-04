@@ -46,7 +46,7 @@ class LoginViewModel(private val userDao: UserDao) : ViewModel() {
         }
     }
 
-    // Función para obtener el nombre del usuario desde SharedPreferences
+
     fun getUserName(context: Context): String {
         val sharedPreferences = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE)
         return sharedPreferences.getString("user_name", "Usuario desconocido") ?: "Usuario desconocido"

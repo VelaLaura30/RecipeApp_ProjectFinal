@@ -117,7 +117,7 @@ fun AddRecipeScreen(viewModel: NewRecipeViewModel, onRecipeSaved: () -> Unit) {
                     )
                     viewModel.addRecipe(newRecipe)
 
-                    // Navegar a la pantalla de todas las recetas
+
                     onRecipeSaved()
                 }
             },
